@@ -5,9 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Phoenix-project</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 </head>
 <body>
-    <%=welecomMessage%>
+    <a href="/new"> search for Movie</a>
     <h2>Movie And Novels App</h2>
+    <section>
+        <ul>
+            <%let conut=0%>
+            <% moviesList.forEach(movie => { %>
+                <li>
+                    <%++conut%>
+                    <img src="<%= movie.image_url %>"> 
+                    <h2><%=movie.title %></h2>
+                       <form action="/movies/<%= movie.id%>" method="GET">
+                        <button type="submit">View Details</button>
+                    </form>
+                </li>
+                <% }) %>
+                <h2>Number of Movies = <%=conut%></h2>
+         
+        </ul>
+    </section>
 </body>
 </html>

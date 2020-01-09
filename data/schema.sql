@@ -12,13 +12,9 @@ CREATE TABLE book (
 
 CREATE TABLE movie (
     id SERIAL PRIMARY KEY,
-    Title VARCHAR(255),
-    Year NUMERIC(4),
-    Rated VARCHAR(255),
-    Poster VARCHAR(255),
-    Plot TEXT,
-    Runtime VARCHAR(255),
-    Actors VARCHAR(255),
-    imdbRating VARCHAR(255),
-    Writer VARCHAR(255)
+    title VARCHAR(255),
+    image_url VARCHAR(255),
+    overview VARCHAR(255),
+    released_on VARCHAR(255),
+    description TEXT
 );

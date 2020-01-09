@@ -21,7 +21,12 @@
                     <input type="hidden" name="overview" value="<%= movie.overview%>">
                     <input type="hidden" name="description" value="<%= movie.description%>">
                     <input type="hidden" name="released_on" value="<%= movie.released_on%>">
-                    <button type="submit">Select this Book</button>
+                    <button type="submit">Select this Movie</button>
+                </form>
+                
+                <form action="/searchBook" method="post">
+                    <input type="hidden" name="title" value="<%= movie.title%>">
+                    <button type="submit">Searh If It has A book</button>
                 </form>
             </li>
         <% }) %>

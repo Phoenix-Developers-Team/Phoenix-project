@@ -23,7 +23,7 @@ server.use(express.static('./public'));
 server.get('/', homePage);
 server.post('/search', getMovieData);
 server.get('/new', showing);
-server.post('/add', processAdd);
+server.post('/add', processAddMovie);
 // server.put('/edit',edaitSelected);
 server.get('/movies/:movie_id', getSpecificMovie);
 server.delete('/delete/:movie_id', deleteMovie);
@@ -66,11 +66,12 @@ function deleteMovie(req, res) {
         .catch(err => handleError(err));
 }
 
-function processAdd(req, res) {
+function processAddMovie(req, res) {
     let {title,image_url, overview, released_on, description} = req.body
     let SQL = `INSERT INTO movie (title, image_url, overview, released_on, description) VALUES ($1, $2, $3, $4, $5)`
     let values = [title,image_url, overview, released_on, description]
-    console.log(values)
+    // console.log(values)
+
 
     client.query(SQL, values)
         .then(() => {
@@ -106,9 +107,85 @@ function homePage (req,res){
     client.query(SQL)
         .then(data => {
             res.render('pages/index', { moviesList: data.rows });
-        }).catch(err => hanleError(err));}
+        }).catch(err => hanleError(err));
+    }
+    //////////////////////// BOOK /////////////////////////////
+    server.post('/searchBook', searcheBook);
+    server.post('/addBook', processAddBook);
+    server.get('/book', getAllBooks);
+    server.get('/books/:book_id', getSpecificBook);
+    server.put('/updatebook/:book_id', updateBook);
+    server.delete('/deletebook/:book_id', deleteBook);
 
 
+
+    function updateBook(req,res){
+    let { image_url, title, author, description, isbn, bookshelf } = req.body
+    let SQL = 'UPDATE book SET image_url=$1, title=$2, author=$3, description=$4, isbn=$5, bookshelf=$6 WHERE id=$7;';
+    let values = [image_url, title, author, description, isbn, bookshelf, req.params.book_id];
+    client.query(SQL,values)
+    .then(res.redirect(`/books/${req.params.book_id}`))
+    .catch(err => handleError(err));
+}
+
+
+
+
+    function deleteBook(req, res) {
+    let SQL = 'DELETE FROM book WHERE id=$1';
+    let values = [req.params.book_id];
+    client.query(SQL, values)
+        .then(res.redirect('/book'))
+        .catch(err => handleError(err));
+}
+
+function getSpecificBook(req, res) {
+    let SQL = `SELECT * FROM book WHERE id=$1`;
+    let id = req.params.book_id;
+    let values = [id];
+    client.query(SQL, values)
+        .then(data => {
+            // console.log(data.rows)
+            res.render('pages/detailBook', { book: data.rows[0] });
+        }).catch(err => handleError(err));
+}
+
+    function getAllBooks(req, res) {
+        let SQL = `SELECT * FROM book;`;
+        client.query(SQL)
+            .then(data => {
+                res.render('pages/favourite', { booksList: data.rows });
+            }).catch(err => hanleError(err));
+    }
+
+    function processAddBook(req, res) {
+        // console.log(req.body)
+        let { image_url, title, author, description, isbn, bookshelf } = req.body
+        let SQL = `INSERT INTO book (image_url, title, author, description, isbn, bookshelf) VALUES ($1, $2, $3, $4, $5, $6)`
+        let values = [image_url, title, author, description, isbn, bookshelf]
+    
+        client.query(SQL, values)
+            .then(() => {
+                res.redirect('/book');
+            }).catch(err => handleError(err));
+    }
+
+    function searcheBook(req, res) {
+        const url = `https://www.googleapis.com/books/v1/volumes?q=${req.body.title}`;
+        superagent.get(url)
+            .then(data => {
+                let jsaonData = data.body.items;
+                let book = jsaonData.map(data => new Book(data));
+                res.render('pages/showBook', { books: book });
+            })
+    }
+    function Book(data) {
+        this.title = data.volumeInfo.title ? data.volumeInfo.title : "No Title Available";
+        this.image_url = (data.volumeInfo.imageLinks && data.volumeInfo.imageLinks.thumbnail) ? data.volumeInfo.imageLinks.thumbnail : "https://i.imgur.com/J5LVHEL.jpg";
+        this.author = data.volumeInfo.authors ? data.volumeInfo.authors : "No Authors";
+        this.description = data.volumeInfo.description ? data.volumeInfo.description : "No description available";
+    }
+////////////////////////////////////////////////////////////
 function handleError(error, response) {
         response.render('pages/error', { error: error });
     }

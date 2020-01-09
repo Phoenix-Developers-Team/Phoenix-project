@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <img src="<%= book.image_url %>"> 
+        <h2><%=book.title %></h2>
+        <h3><%=book.author%></h3>
+        <p><%=book.description%></p>
+        <h4><%=book.isbn%></h4>
+        <p><%=book.bookshelf%></p>
+        <form action="<%= `/updatebook/${book.id}?_method=PUT`%>" method="POST">
+            <input type="text" name="title" value="<%= book.title %>">
+            <input type="text" name="image_url" value="<%= book.image_url %>">
+          <input type="text" name="author" value="<%= book.author %>">
+          <textarea name="description" cols="30" rows="10" > <%= book.description %></textarea>
+          <input type="text" name="isbn" value="<%= book.isbn %>">
+          <input type="text" name="bookshelf" value="<%= book.bookshelf %>"> 
+          <button type="submit"> Update Details </button>
+          </form>
+          <form action="<%=`/deletebook/${book.id}?_method=DELETE`%>" method="POST">
+            <button type="submit"> DELETE </button> 
+          </form>
+</ul>
+</body>
+</html>

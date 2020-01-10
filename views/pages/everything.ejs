@@ -7,25 +7,23 @@
     <header>
         <%- include('../partials/header') %>
     </header>
-        <section>
-
+    <section>
         <ul>
-            <%let conut=0%>
-            <% moviesList.forEach(movie => { %>
+            <%let conuter=0%>
+            <% booksList.forEach(book => { %>
                 <li>
-                    <%++conut%>
-                    <img src="<%= movie.image_url %>"> 
-                    <h2><%=movie.title %></h2>
-                       <form action="/movies/<%= movie.id%>" method="GET">
+                    <%++conuter%>
+                        <img src=<%= book.image_url%>>
+                        <h2 class="title"><%= book.title%></h2>
+                        <h3 class="author"><%= book.author%></h3>
+                       <form action="/books/<%= book.id%>" method="GET">
                         <button type="submit">View Details</button>
                     </form>
                 </li>
                 <% }) %>
-                <h2>Number of Movies = <%=conut%></h2>
-         
+                <h2>Number of Books = <%=conuter%></h2>
         </ul>
     </section>
-
     <footer>
         <%- include('../partials/footer') %>
     </footer>

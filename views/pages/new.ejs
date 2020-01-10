@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/new" method="post">
+        <label>
+            <input type="text" name="title" value="<%=  movie.title%>">
+            <input type="text" name="image_url"  value=" <%= movie.image_url%>">
+            <input type="text" name="overview" placeholder="Populated overview:" value="<%= movie.overview%>">
+            <input type="text" name="released_on" value="<%= movie.released_on%>">
+            <textarea name="description" placeholder="Populated Description:">"<%= movie.description%>"</textarea>
+                <button type="submit">Add to Database</button>
+        </label>
+    </form>
+</body>
+</html>

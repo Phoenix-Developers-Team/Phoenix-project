@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+                <img src="<%= movie.image_url %>"> 
+                <h2><%=movie.title %></h2>
+                <h3><%=movie.overview%></h3>
+                <p><%=movie.description%></p>
+                <h3><%=movie.released_on%></h3>
+                <form action="<%= `/update/${movie.id}?_method=PUT`%>" method="POST">
+                    <input type="text" name="title" value="<%= movie.title%>">
+                    <input type="text" name="image_url" value="<%= movie.image_url%>">
+                    <input type="text" name="overview" value="<%= movie.overview%>">
+                    <input type="text" name="released_on" value="<%= movie.released_on%>"> 
+                    <textarea name="description" cols="30" rows="10" > <%= movie.description %></textarea>
+                    <button type="submit"> Save Details </button>
+                    </form>
+                <form action="<%=`/delete/${movie.id}?_method=DELETE`%>" method="POST">
+                    <button type="submit"> DELETE </button> 
+                  </form>
+ 
+</body>
+</html>
+

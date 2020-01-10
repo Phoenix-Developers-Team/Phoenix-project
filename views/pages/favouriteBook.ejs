@@ -21,6 +21,9 @@
                        <form action="/books/<%= book.id%>" method="GET">
                         <button type="submit">View Details</button>
                     </form>
+                    <form action="<%=`/deletebook/${book.id}?_method=DELETE`%>" method="POST">
+                        <button type="submit"> DELETE </button> 
+                      </form>
                 </li>
                 <% }) %>
                 <h2>Number of Books = <%=conuter%></h2>

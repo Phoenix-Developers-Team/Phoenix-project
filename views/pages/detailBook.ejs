@@ -23,9 +23,7 @@
           <input type="text" name="bookshelf" value="<%= book.bookshelf %>"> 
           <button type="submit"> Update Details </button>
           </form>
-          <form action="<%=`/deletebook/${book.id}?_method=DELETE`%>" method="POST">
-            <button type="submit"> DELETE </button> 
-          </form>
+         
 </ul>
 <footer>
   <%- include('../partials/footer') %>

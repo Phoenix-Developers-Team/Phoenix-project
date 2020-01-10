@@ -22,9 +22,7 @@
         <textarea name="description" cols="30" rows="10"> <%= movie.description %></textarea>
         <button type="submit"> Save Details </button>
     </form>
-    <form action="<%=`/delete/${movie.id}?_method=DELETE`%>" method="POST">
-        <button type="submit"> DELETE </button>
-    </form>
+    
 <footer>
         <%- include('../partials/footer') %>
 </footer>

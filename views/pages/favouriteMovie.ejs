@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+</head>
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+        <section>
+
+        <ul>
+            <%let conut=0%>
+            <% moviesList.forEach(movie => { %>
+                <li>
+                    <%++conut%>
+                    <img src="<%= movie.image_url %>"> 
+                    <h2><%=movie.title %></h2>
+                       <form action="/movies/<%= movie.id%>" method="GET">
+                        <button type="submit">View Details</button>
+                    </form>
+                    <form action="<%=`/delete/${movie.id}?_method=DELETE`%>" method="POST">
+                        <button type="submit"> DELETE </button>
+                    </form>
+                </li>
+                <% }) %>
+                <h2>Number of Movies = <%=conut%></h2>
+         
+        </ul>
+    </section>
+
+    <footer>
+        <%- include('../partials/footer') %>
+    </footer>
+</body>
+</html>

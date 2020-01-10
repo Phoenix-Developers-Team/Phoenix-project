@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS book, movie;
+DROP TABLE IF EXISTS book, movie, favourite;
 
 CREATE TABLE book (
     id SERIAL PRIMARY KEY,

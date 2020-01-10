@@ -24,16 +24,9 @@ server.get('/', homePage);
 server.post('/search', getMovieData);
 server.get('/new', showing);
 server.post('/add', processAddMovie);
-// server.put('/edit',edaitSelected);
 server.get('/movies/:movie_id', getSpecificMovie);
 server.delete('/delete/:movie_id', deleteMovie);
 server.put('/update/:movie_id', updateMovie);
-
-// function edaitSelected(req, res) {
-//     // console.log(req.body)
-//     res.render('pages/new', { movie: req.body })
-// }
-
 
 function showing(req,res){
 res.render('pages/search')

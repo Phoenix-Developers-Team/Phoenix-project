@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS book, movie, favourite;
+DROP TABLE IF EXISTS book, movie, search_history;
 
 CREATE TABLE book (
     id SERIAL PRIMARY KEY,
@@ -17,4 +17,9 @@ CREATE TABLE movie (
     overview VARCHAR(2083),
     released_on VARCHAR(2083),
     description TEXT
+);
+CREATE TABLE search_history (
+    id SERIAL PRIMARY KEY,
+    image_url VARCHAR(2083),
+    date VARCHAR(2083)
 );

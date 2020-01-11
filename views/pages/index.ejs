@@ -7,8 +7,14 @@
     <header>
         <%- include('../partials/header') %>
     </header>
-        <section>
-<h2>welcome</h2>
+    <section>
+        <ul>
+            <%for(let i=0 ; output.length>i ; i++) {%>
+                <li>
+                    <img src="<%=output[i].image_url%>" alt="">
+                </li>
+             <%}%>
+        </ul>
     </section>
 
     <footer>

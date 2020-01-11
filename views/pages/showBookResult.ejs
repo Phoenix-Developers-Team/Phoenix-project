@@ -23,6 +23,10 @@
                     <input type="hidden" name="isbn" value="<%= book.isbn%>">
                     <button type="submit">Select this Book</button>
                 </form>
+                <form action="/searchIfMovie" method="post">
+                    <input type="hidden" name="title" value="<%= book.title%>">
+                    <button type="submit">Searh If It has A Movie</button>
+                </form>
             </li>
         <% }) %>
     </ul>

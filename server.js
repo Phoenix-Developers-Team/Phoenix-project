@@ -69,9 +69,9 @@ function processAddMovie(req, res) {
 
 
     client.query(SQL, values)
-        .then(() => {
-            res.redirect('/movie');
-        }).catch(err => handleError(err));
+        // .then(() => {
+        //     res.redirect('/movie');
+        // }).catch(err => handleError(err));
 }
 
 function getMovieData(req,res){
@@ -94,7 +94,7 @@ function Movies(data){
     this.released_on = data.release_date;
 }
 function getAllMovies (req,res){
-    let SQL = `SELECT * FROM movie;`;
+    let SQL = `SELECT DISTINCT image_url FROM movie;`;
     client.query(SQL)
         .then(data => {
             res.render('pages/favouriteMovie', { moviesList: data.rows });
@@ -139,7 +139,7 @@ function getSpecificBook(req, res) {
         }).catch(err => handleError(err));
 }
     function getAllBooks(req, res) {
-        let SQL = `SELECT * FROM book;`;
+        let SQL = `SELECT DISTINCT image_url FROM book;`;
         client.query(SQL)
             .then(data => {
                 res.render('pages/favouriteBook', { booksList: data.rows });
@@ -152,9 +152,9 @@ function getSpecificBook(req, res) {
         let values = [image_url, title, author, description, isbn, bookshelf]
     
         client.query(SQL, values)
-            .then(() => {
-                res.redirect('/book');
-            }).catch(err => handleError(err));
+            // .then(() => {
+            //     res.redirect('/book');
+            // }).catch(err => handleError(err));
     }
 
     function searcheIfBook(req, res) {

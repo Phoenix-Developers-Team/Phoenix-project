@@ -15,7 +15,8 @@
                 <h3><%=movie.overview%></h3>
                 <p><%=movie.description%></p>
                 <h3><%=movie.released_on%></h3>
-                <form action="/add" method="post">
+                <form action="/add" method="post" id="lol">
+                    <input type="hidden" name="mainTitle" value="<%=mainTitle %>">
                     <input type="hidden" name="image_url" value="<%= movie.image_url%>">
                     <input type="hidden" name="title" value="<%= movie.title%>">
                     <input type="hidden" name="overview" value="<%= movie.overview%>">
@@ -24,7 +25,7 @@
                     <button type="submit">Select this Movie</button>
                 </form>
                 
-                <form action="/searchIfBook" method="post">
+                <form action="/searchIfBook" method="post" >
                     <input type="hidden" name="title" value="<%= movie.title%>">
                     <button type="submit">Searh If It has A book</button>
                 </form>
@@ -34,5 +35,7 @@
     <footer>
         <%- include('../partials/footer') %>
     </footer>
+    
+    
 </body>
 </html>

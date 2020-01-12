@@ -31,7 +31,7 @@ const mistake = require('./error.js');
 
 //     ********** MOVIE ROUTES **********
 server.get('/movie', movie.getAllMovies);
-server.post('/searchMovie', movie.getMovieData);
+server.get('/searchMovie', movie.getMovieData);
 server.post('/add', movie.processAddMovie);
 server.get('/movies/:movie_id', movie.getSpecificMovie);
 server.delete('/delete/:movie_id', movie.deleteMovie);
@@ -45,18 +45,19 @@ function showing(req, res) {
     res.render('pages/search')
 }
 function homePage(req, res) {
-    let SQL = `SELECT * FROM movie;`;
-    dataBase.query(SQL)
-        .then(element => {
+    // let SQL = `SELECT * FROM movie;`;
+    // dataBase.query(SQL)
+    //     .then(element => {
             let SQL_1 = `SELECT * FROM search_history
                     ORDER BY date DESC
-                    LIMIT 4;`
+                    LIMIT 4 ;`
+                    //select n_num from abc_test group by n_num order by min(k_str)
                 dataBase.query(SQL_1)
                 .then(data => {
-                    res.render('pages/index', {moviesList:element.rows,output: data.rows });
+                    console.log(data.rows)
+                    res.render('pages/index', {output: data.rows });
                 })
-        })//.catch(err => hanleError(err));
-}
+            }//.catch(err => hanleError(err));
 function favoritBM(req, res) {
     res.render('pages/everything')
 }
@@ -78,3 +79,5 @@ dataBase.connect()
     .then(() => {
         server.listen(PORT, () => console.log(`server listen to ${PORT} port`));
     }).catch(err => console.error(err));
+
+    

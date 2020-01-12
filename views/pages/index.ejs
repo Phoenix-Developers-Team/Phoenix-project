@@ -9,10 +9,14 @@
     </header>
     <section>
         <ul>
+            <%let check = []%>
             <%for(let i=0 ; output.length>i ; i++) {%>
-                <li>
+                <%if(!(check.includes(output[i].image_url))){%>
+                    <%check.push(output[i].image_url)%>
+                    <li>
                     <img src="<%=output[i].image_url%>" alt="">
                 </li>
+                    <%}%>
              <%}%>
         </ul>
     </section>

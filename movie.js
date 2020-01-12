@@ -36,87 +36,87 @@ function deleteMovie(req, res) {
 }
 // this function is added movie to favourite   
 function processAddMovie(req, res) {
-    let { mainTitle,title, image_url, overview, released_on, description } = req.body;
+    let { mainTitle, title, image_url, overview, released_on, description } = req.body;
     let SQL_1 = `SELECT * FROM movie WHERE image_url=$1;`
-    let value = [image_url] 
+    let value = [image_url]
     console.log("asdasdsadsadsadsad");
     database.query(SQL_1, value)
-    .then(data=>{
-        console.log(req.body);
-        if(data.rows.length == 0){
-            // res.redirect('/search');
-            // res.redirect(req.get('referer'))           
-            console.log('1')
-            let values = [title, image_url, overview, released_on, description]
-            let SQL = `INSERT INTO movie (title, image_url, overview, released_on, description) VALUES ($1, $2, $3, $4, $5);`
-            database.query(SQL,values)
-            .then(()=>{
-                console.log('we are in if',mainTitle);
-                // res.render('pages/showMovieResult',{movies:req.body});
+        .then(data => {
+            console.log(req.body);
+            if (data.rows.length == 0) {
+                // res.redirect('/search');
+                // res.redirect(req.get('referer'))           
+                console.log('1')
+                let values = [title, image_url, overview, released_on, description]
+                let SQL = `INSERT INTO movie (title, image_url, overview, released_on, description) VALUES ($1, $2, $3, $4, $5);`
+                database.query(SQL, values)
+                    .then(() => {
+                        console.log('we are in if', mainTitle);
+                        // res.render('pages/showMovieResult',{movies:req.body});
+                        // res.redirect(`/search`);
+                        handleSearchedData(mainTitle)
+                            .then(data => {
+                                console.log(data);
+                                res.render('pages/showMovieResult', { movies: data, mainTitle: mainTitle })
+                            })
+                        // res.redirect('back');
+                        // res.redirect(`/searchMovie`,{query:req.body.mainTitle} );
+                        // res.redirect(url.format({
+                        //     pathname:'/searchMovie?input=',
+                        //     query:req.body.mainTitle
+                        // }))
+                        // res.redirect('/add');
+                    })
+            } else {
+                console.log('we are in else', mainTitle)
                 // res.redirect(`/search`);
                 handleSearchedData(mainTitle)
-                .then(data => {
-                    console.log(data);
-                    res.render('pages/showMovieResult',{movies:data, mainTitle:mainTitle})
-                })
+                    .then(data => {
+                        console.log(data);
+                        res.render('pages/showMovieResult', { movies: data, mainTitle: mainTitle })
+                    })
+
                 // res.redirect('back');
-                // res.redirect(`/searchMovie`,{query:req.body.mainTitle} );
+                // res.render('pages/showMovieResult',{movies:req.body});
+                // res.redirect(`/searchMovie`);
                 // res.redirect(url.format({
                 //     pathname:'/searchMovie?input=',
                 //     query:req.body.mainTitle
                 // }))
-                // res.redirect('/add');
-        })
-    }else{
-        console.log('we are in else',mainTitle)
-        // res.redirect(`/search`);
-        handleSearchedData(mainTitle)
-        .then(data => {
-            console.log(data);
-            res.render('pages/showMovieResult',{movies:data, mainTitle:mainTitle})
-        })
-        
-        // res.redirect('back');
-        // res.render('pages/showMovieResult',{movies:req.body});
-        // res.redirect(`/searchMovie`);
-        // res.redirect(url.format({
-        //     pathname:'/searchMovie?input=',
-        //     query:req.body.mainTitle
-        // }))
-    }
+            }
 
-    })
-} 
-    // })    .catch(error => { throw error; });
+        })
+}
+// })    .catch(error => { throw error; });
 
-function handleSearchedData(keyword){
+function handleSearchedData(keyword) {
     const moviesUrl = `https://api.themoviedb.org/3/search/movie?api_key=${MOVIE_API_KEY}&language=en-US&query=${keyword}&page=1&include_adult=false`;
     console.log(moviesUrl);
     return superagent.get(moviesUrl)
-    .then( moviesData => {
-        const movies = moviesData.body.results.map((data) => new Movies(data));
-        // res.render('pages/showMovieResult',{movies:movies,mainTitle:req.body.input})
-        return movies;
-    });
+        .then(moviesData => {
+            const movies = moviesData.body.results.map((data) => new Movies(data));
+            // res.render('pages/showMovieResult',{movies:movies,mainTitle:req.body.input})
+            return movies;
+        });
 }
 
 
 // this function is search for a movie
 function getMovieData(req, res) {
-    console.log("asdasdsadsad",req.body)
+    console.log("asdasdsadsad", req.body)
     const moviesUrl = `https://api.themoviedb.org/3/search/movie?api_key=${MOVIE_API_KEY}&language=en-US&query=${req.body.input}&page=1&include_adult=false`
     superagent.get(moviesUrl)
-    .then((moviesData) => {
-        const movies = moviesData.body.results.map((data) => new Movies(data));
-        // res.render('pages/showMovieResult', { movies: movies,mainTitle:req.body.input });
-        let SQL = `INSERT INTO search_history (image_url,date)VAlUES($1,$2) `
-        let values = [movies[0].image_url,new Date()]
-        database.query(SQL, values)
-        .then(() => {
-            res.render('pages/showMovieResult',{movies:movies,mainTitle:req.body.input})
-        })
-    });
- }
+        .then((moviesData) => {
+            const movies = moviesData.body.results.map((data) => new Movies(data));
+            // res.render('pages/showMovieResult', { movies: movies,mainTitle:req.body.input });
+            let SQL = `INSERT INTO search_history (image_url,date)VAlUES($1,$2) `
+            let values = [movies[0].image_url, new Date()]
+            database.query(SQL, values)
+                .then(() => {
+                    res.render('pages/showMovieResult', { movies: movies, mainTitle: req.body.input })
+                })
+        });
+}
 
 function getIFMovieData(req, res) {
     console.log(req.body.title)
@@ -124,7 +124,7 @@ function getIFMovieData(req, res) {
     superagent.get(moviesUrl)
         .then((moviesData) => {
             const movies = moviesData.body.results.map((data) => new Movies(data));
-            res.render('pages/showMovieResult', { movies: movies });
+            res.render('pages/showMovieResult', { movies: movies, mainTitle: req.body.input });
         });
 }
 // constuction function for movie  

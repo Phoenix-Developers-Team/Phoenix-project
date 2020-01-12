@@ -68,7 +68,7 @@ server.get('/book', book.getAllBooks);
 server.get('/books/:book_id', book.getSpecificBook);
 server.put('/updatebook/:book_id', book.updateBook);
 server.delete('/deletebook/:book_id', book.deleteBook);
-server.post('/searchBook', book.searcheBook);
+server.get('/searchBook', book.searcheBook);
 
 //     ********** SHOW ERRORS **********
 server.use('*', mistake.notFoundHandler);

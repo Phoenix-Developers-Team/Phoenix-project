@@ -39,16 +39,44 @@ function getAllBooks(req, res) {
             res.render('pages/favouriteBook', { booksList: data.rows });
         }).catch(error => { throw error; });
 }
-// this function is added book to favourite
+
+
 function processAddBook(req, res) {
-    let { image_url, title, author, description, isbn, bookshelf } = req.body
-    let SQL = `INSERT INTO book (image_url, title, author, description, isbn, bookshelf) VALUES ($1, $2, $3, $4, $5, $6)`
-    let values = [image_url, title, author, description, isbn, bookshelf]
-    database.query(SQL, values)
-    // .then(() => {
+    let { mainSelect, mainTitle, image_url, title, author, description, isbn, bookshelf } = req.body
+    let SQL_1 = `SELECT * FROM book WHERE image_url=$1;`
+    let value = [image_url]
+    console.log("asdasdsadsadsadsad",mainSelect,mainTitle);
+    database.query(SQL_1, value)
+        .then(data => {
+            // console.log(req.body.select)
+            if (data.rows.length == 0) {
+                // console.log('1')
+                let values = [image_url, title, author, description, isbn, bookshelf]
+                let SQL = `INSERT INTO book (image_url, title, author, description, isbn, bookshelf) VALUES ($1, $2, $3, $4, $5, $6)`
+                database.query(SQL, values)
+                    .then(() => {
+                        console.log('we are in if', mainSelect, mainTitle)
+                        res.redirect(`/searchBook?input=${mainTitle}&select=${mainSelect}`);
+                    })
+            } else {
+                console.log('we are in else', mainSelect, mainTitle)
+                res.redirect(`/searchBook?input=${mainTitle}&select=${mainSelect}`);
+            }
+        })    // .then(() => {
     //     res.redirect('/book');
     // })     .catch(error => { throw error; });
 }
+
+// this function is added book to favourite
+// function processAddBook(req, res) { 
+//     let { image_url, title, author, description, isbn, bookshelf } = req.body
+//     let SQL = `INSERT INTO book (image_url, title, author, description, isbn, bookshelf) VALUES ($1, $2, $3, $4, $5, $6)`
+//     let values = [image_url, title, author, description, isbn, bookshelf]
+//     database.query(SQL, values)
+//     .then(() => {
+//         res.redirect(`/book`);
+//     })     .catch(error => { throw error; });
+// }
 // this function is search if there is a book for this movie
 function searcheIfBook(req, res) {
     const url = `https://www.googleapis.com/books/v1/volumes?q=${req.body.title}`;
@@ -56,17 +84,18 @@ function searcheIfBook(req, res) {
         .then(data => {
             let jsaonData = data.body.items;
             let book = jsaonData.map(data => new Book(data));
-            res.render('pages/showBookResult', { books: book });
+            res.render('pages/showBookResult', { books: book,mainTitle:req.body.input,mainSelect:req.body.select });
         })
 }
 // this function is search for a book 
 function searcheBook(req, res) {
-    const url = `https://www.googleapis.com/books/v1/volumes?q=${req.body.select}+${req.body.input}`;
+    console.log(req.query)
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${req.query.select}+${req.query.input}`;
     superagent.get(url)
         .then(data => {
             let jsaonData = data.body.items;
             let book = jsaonData.map(data => new Book(data));
-            res.render('pages/showBookResult', { books: book });
+            res.render('pages/showBookResult', { books: book,mainTitle:req.query.input,mainSelect:req.query.select });
         })
 }
 // constuction function for book

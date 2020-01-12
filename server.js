@@ -45,18 +45,19 @@ function showing(req, res) {
     res.render('pages/search')
 }
 function homePage(req, res) {
-    let SQL = `SELECT * FROM movie;`;
-    dataBase.query(SQL)
-        .then(element => {
+    // let SQL = `SELECT * FROM movie;`;
+    // dataBase.query(SQL)
+    //     .then(element => {
             let SQL_1 = `SELECT * FROM search_history
                     ORDER BY date DESC
-                    LIMIT 4;`
+                    LIMIT 4 ;`
+                    //select n_num from abc_test group by n_num order by min(k_str)
                 dataBase.query(SQL_1)
                 .then(data => {
-                    res.render('pages/index', {moviesList:element.rows,output: data.rows });
+                    console.log(data.rows)
+                    res.render('pages/index', {output: data.rows });
                 })
-        })//.catch(err => hanleError(err));
-}
+            }//.catch(err => hanleError(err));
 function favoritBM(req, res) {
     res.render('pages/everything')
 }
@@ -67,7 +68,7 @@ server.get('/book', book.getAllBooks);
 server.get('/books/:book_id', book.getSpecificBook);
 server.put('/updatebook/:book_id', book.updateBook);
 server.delete('/deletebook/:book_id', book.deleteBook);
-server.post('/searchBook', book.searcheBook);
+server.get('/searchBook', book.searcheBook);
 
 //     ********** SHOW ERRORS **********
 server.use('*', mistake.notFoundHandler);
@@ -78,3 +79,5 @@ dataBase.connect()
     .then(() => {
         server.listen(PORT, () => console.log(`server listen to ${PORT} port`));
     }).catch(err => console.error(err));
+
+    

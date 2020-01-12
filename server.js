@@ -31,7 +31,7 @@ const mistake = require('./error.js');
 
 //     ********** MOVIE ROUTES **********
 server.get('/movie', movie.getAllMovies);
-server.get('/searchMovie', movie.getMovieData);
+server.post('/searchMovie', movie.getMovieData);
 server.post('/add', movie.processAddMovie);
 server.get('/movies/:movie_id', movie.getSpecificMovie);
 server.delete('/delete/:movie_id', movie.deleteMovie);

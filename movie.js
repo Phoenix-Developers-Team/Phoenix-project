@@ -1,5 +1,4 @@
 'use strict';
-
 // require the superagent in order to can get the data from API
 const superagent = require('superagent');
 // get the API key from env file to use it in the movie API
@@ -39,63 +38,32 @@ function processAddMovie(req, res) {
     let { mainTitle, title, image_url, overview, released_on, description } = req.body;
     let SQL_1 = `SELECT * FROM movie WHERE image_url=$1;`
     let value = [image_url]
-    console.log("asdasdsadsadsadsad");
     database.query(SQL_1, value)
         .then(data => {
-            console.log(req.body);
-            if (data.rows.length == 0) {
-                // res.redirect('/search');
-                // res.redirect(req.get('referer'))           
-                console.log('1')
+            if (data.rows.length == 0) {         
                 let values = [title, image_url, overview, released_on, description]
                 let SQL = `INSERT INTO movie (title, image_url, overview, released_on, description) VALUES ($1, $2, $3, $4, $5);`
                 database.query(SQL, values)
                     .then(() => {
-                        console.log('we are in if', mainTitle);
-                        // res.render('pages/showMovieResult',{movies:req.body});
-                        // res.redirect(`/search`);
                         handleSearchedData(mainTitle)
                             .then(data => {
-                                console.log(data);
                                 res.render('pages/showMovieResult', { movies: data, mainTitle: mainTitle })
                             })
-                        // res.redirect('back');
-                        // res.redirect(`/searchMovie`,{query:req.body.mainTitle} );
-                        // res.redirect(url.format({
-                        //     pathname:'/searchMovie?input=',
-                        //     query:req.body.mainTitle
-                        // }))
-                        // res.redirect('/add');
                     })
             } else {
-                console.log('we are in else', mainTitle)
-                // res.redirect(`/search`);
                 handleSearchedData(mainTitle)
                     .then(data => {
-                        console.log(data);
                         res.render('pages/showMovieResult', { movies: data, mainTitle: mainTitle })
                     })
-
-                // res.redirect('back');
-                // res.render('pages/showMovieResult',{movies:req.body});
-                // res.redirect(`/searchMovie`);
-                // res.redirect(url.format({
-                //     pathname:'/searchMovie?input=',
-                //     query:req.body.mainTitle
-                // }))
             }
-
         })
 }
-// })    .catch(error => { throw error; });
-
 function handleSearchedData(keyword) {
     const moviesUrl = `https://api.themoviedb.org/3/search/movie?api_key=${MOVIE_API_KEY}&language=en-US&query=${keyword}&page=1&include_adult=false`;
     console.log(moviesUrl);
     return superagent.get(moviesUrl)
         .then(moviesData => {
             const movies = moviesData.body.results.map((data) => new Movies(data));
-            // res.render('pages/showMovieResult',{movies:movies,mainTitle:req.body.input})
             return movies;
         });
 }
@@ -108,7 +76,6 @@ function getMovieData(req, res) {
     superagent.get(moviesUrl)
         .then((moviesData) => {
             const movies = moviesData.body.results.map((data) => new Movies(data));
-            // res.render('pages/showMovieResult', { movies: movies,mainTitle:req.body.input });
             let SQL = `INSERT INTO search_history (image_url,date)VAlUES($1,$2) `
             let values = [movies[0].image_url, new Date()]
             database.query(SQL, values)
@@ -117,9 +84,7 @@ function getMovieData(req, res) {
                 })
         });
 }
-
 function getIFMovieData(req, res) {
-    console.log(req.body.title)
     const moviesUrl = `https://api.themoviedb.org/3/search/movie?api_key=${MOVIE_API_KEY}&language=en-US&query=${req.body.title}&page=1&include_adult=false`
     superagent.get(moviesUrl)
         .then((moviesData) => {

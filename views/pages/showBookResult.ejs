@@ -4,36 +4,94 @@
     <%- include('../partials/head') %>
 </head>
 <body>
-    <header>
-        <%- include('../partials/header') %>
-    </header>>
-    
-    <ul>
+    <header class="headerX">
+        <div class="rowHead">
+            <div class="contentX"> 
+              <div><img id="img" src="img\video-file-2-512.png"></div>
+        
+              <a class="logo" href="/">HOME</a>
+        
+              <div class="mobile-toggle">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+              </div>
+        
+              <nav>
+                  <ul>
+                      <li><a href="#sec01">Trending</a></li>
+                      <li><a href="#sec02">Box-Office</a></li>
+                      <li><a href="#sec03">History</a></li>
+                      <li><a href="/search">Search</a></li>
+                      <li><a href="/favorit">My-Fav</a></li>
+                  </ul>
+              </nav>
+            </div>
+          </div>
+    </header>
+    <nav class="navbar">
+        <main>
+    </nav>
+    <div class="image-container7">
+        <a class="text-X">Books Search Result</a>
+      </div>
+<br><br><br>
+    <section class="container-fluid bg-grey-X py-5">
         <% books.forEach(book => { %>
-            <li> 
-                <img src="<%= book.image_url %>"> 
-                <h2><%=book.title %></h2>
-                <h3><%=book.author%></h3>
-                <p><%=book.description%></p>
-                <form action="/addBook" method="post">
-                    <input type="hidden" name="mainSelect" value="<%= mainSelect%>">
-                    <input type="hidden" name="mainTitle" value="<%= mainTitle%>">
-                    <input type="hidden" name="image_url" value="<%= book.image_url%>">
-                    <input type="hidden" name="title" value="<%= book.title%>">
-                    <input type="hidden" name="author" value="<%= book.author%>">
-                    <input type="hidden" name="description" value="<%= book.description%>">
-                    <input type="hidden" name="isbn" value="<%= book.isbn%>">
-                    <button type="submit">Select this Book</button>
-                </form>
-                <form action="/searchIfMovie" method="post">
-                    <input type="hidden" name="title" value="<%= book.title%>">
-                    <button type="submit">Searh If It has A Movie</button>
-                </form>
-            </li>
+        <div class="container">
+            <div class="row">
+               <div class="col-md-6">
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div data-aos="fade-up" class="logo-part-X">
+                           <img data-aos="fade-right" class="img-mov" src="<%= book.image_url %>" class="w-50 logo-Mov" >
+                        </div>
+                    </div>
+                    <div class="col-md-6 px-4">
+                       <h6 id="h6" data-aos="fade-left"><%=book.title %></h6>
+                       <div data-aos="fade-up-left" class="btn-Mov-X1">
+                        <form action="/addBook" method="post">
+                            <input type="hidden" name="mainSelect" value="<%= mainSelect%>">
+                            <input type="hidden" name="mainTitle" value="<%= mainTitle%>">
+                            <input type="hidden" name="image_url" value="<%= book.image_url%>">
+                            <input type="hidden" name="title" value="<%= book.title%>">
+                            <input type="hidden" name="author" value="<%= book.author%>">
+                            <input type="hidden" name="description" value="<%= book.description%>">
+                            <input type="hidden" name="isbn" value="<%= book.isbn%>">
+                            <button class="btn-Mov-X" type="submit">Select this Book</button>
+                        </form><br>
+                        <form action="/searchIfMovie" method="post">
+                         <input type="hidden" name="title" value="<%= book.title%>">
+                         <button class="btn-Mov-X" type="submit">Searh If It has A Movie</button>
+                     </form>
+                   </div>
+                    </div>
+                 </div>
+              </div>
+                    <div data-aos="fade-up-left" class="col-md-6 ">
+                       <h6><%=book.author%></h6>
+                       <div class="social">
+                          
+                    </div>
+                       <p><%=book.description%></p>
+                    </div>
+                 </div>
+              </div>
+              <br><hr data-aos="fade-right" width="70%" color="gray"><br>
+           </div>
+        </div>
         <% }) %>
-    </ul>
-    <footer>
+      </section>
+       </main>
+    <br><br><br>
+    <footer class="container-fluid bg-grey py-5">
         <%- include('../partials/footer') %>
     </footer>
-</body>
-</html>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script>
+      AOS.init();
+    </script>
+      <script src="/js/app.js"></script>
+    </body>
+    </html>

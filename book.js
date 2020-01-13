@@ -3,7 +3,6 @@
 const superagent = require('superagent');
 // Our database client. We'll use this to run queries
 const database = require('./dataBase.js');
-
 // this function is make an update procces for book
 function updateBook(req, res) {
     let { image_url, title, author, description, isbn, bookshelf } = req.body
@@ -45,26 +44,19 @@ function processAddBook(req, res) {
     let { mainSelect, mainTitle, image_url, title, author, description, isbn, bookshelf } = req.body
     let SQL_1 = `SELECT * FROM book WHERE image_url=$1;`
     let value = [image_url]
-    console.log("asdasdsadsadsadsad",mainSelect,mainTitle);
     database.query(SQL_1, value)
         .then(data => {
-            // console.log(req.body.select)
             if (data.rows.length == 0) {
-                // console.log('1')
                 let values = [image_url, title, author, description, isbn, bookshelf]
                 let SQL = `INSERT INTO book (image_url, title, author, description, isbn, bookshelf) VALUES ($1, $2, $3, $4, $5, $6)`
                 database.query(SQL, values)
                     .then(() => {
-                        console.log('we are in if', mainSelect, mainTitle)
                         res.redirect(`/searchBook?input=${mainTitle}&select=${mainSelect}`);
                     })
             } else {
-                console.log('we are in else', mainSelect, mainTitle)
                 res.redirect(`/searchBook?input=${mainTitle}&select=${mainSelect}`);
             }
-        })    // .then(() => {
-    //     res.redirect('/book');
-    // })     .catch(error => { throw error; });
+        })   
 }
 
 // this function is added book to favourite
@@ -89,7 +81,6 @@ function searcheIfBook(req, res) {
 }
 // this function is search for a book 
 function searcheBook(req, res) {
-    console.log(req.query)
     const url = `https://www.googleapis.com/books/v1/volumes?q=${req.query.select}+${req.query.input}`;
     superagent.get(url)
         .then(data => {

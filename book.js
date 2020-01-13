@@ -3,7 +3,6 @@
 const superagent = require('superagent');
 // Our database client. We'll use this to run queries
 const database = require('./dataBase.js');
-
 // this function is make an update procces for book
 function updateBook(req, res) {
     let { image_url, title, author, description, isbn, bookshelf } = req.body
@@ -39,15 +38,23 @@ function getAllBooks(req, res) {
             res.render('pages/favouriteBook', { booksList: data.rows });
         }).catch(error => { throw error; });
 }
-// this function is added book to favourite
 function processAddBook(req, res) {
-    let { image_url, title, author, description, isbn, bookshelf } = req.body
-    let SQL = `INSERT INTO book (image_url, title, author, description, isbn, bookshelf) VALUES ($1, $2, $3, $4, $5, $6)`
-    let values = [image_url, title, author, description, isbn, bookshelf]
-    database.query(SQL, values)
-    // .then(() => {
-    //     res.redirect('/book');
-    // })     .catch(error => { throw error; });
+    let { mainSelect, mainTitle, image_url, title, author, description, isbn, bookshelf } = req.body
+    let SQL_1 = `SELECT * FROM book WHERE image_url=$1;`
+    let value = [image_url]
+    database.query(SQL_1, value)
+        .then(data => {
+            if (data.rows.length == 0) {
+                let values = [image_url, title, author, description, isbn, bookshelf]
+                let SQL = `INSERT INTO book (image_url, title, author, description, isbn, bookshelf) VALUES ($1, $2, $3, $4, $5, $6)`
+                database.query(SQL, values)
+                    .then(() => {
+                        res.redirect(`/searchBook?input=${mainTitle}&select=${mainSelect}`);
+                    })
+            } else {
+                res.redirect(`/searchBook?input=${mainTitle}&select=${mainSelect}`);
+            }
+        })   
 }
 // this function is search if there is a book for this movie
 function searcheIfBook(req, res) {
@@ -56,17 +63,17 @@ function searcheIfBook(req, res) {
         .then(data => {
             let jsaonData = data.body.items;
             let book = jsaonData.map(data => new Book(data));
-            res.render('pages/showBookResult', { books: book });
+            res.render('pages/showBookResult', { books: book,mainTitle:req.body.input,mainSelect:req.body.select });
         })
 }
 // this function is search for a book 
 function searcheBook(req, res) {
-    const url = `https://www.googleapis.com/books/v1/volumes?q=${req.body.select}+${req.body.input}`;
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${req.query.select}+${req.query.input}`;
     superagent.get(url)
         .then(data => {
             let jsaonData = data.body.items;
             let book = jsaonData.map(data => new Book(data));
-            res.render('pages/showBookResult', { books: book });
+            res.render('pages/showBookResult', { books: book,mainTitle:req.query.input,mainSelect:req.query.select });
         })
 }
 // constuction function for book

@@ -58,10 +58,11 @@
                     <div data-aos="fade-up-left" class="col-md-6-fav">
                        <h1> <%=movie.title %></h1>
                        <form action="/movies/<%= movie.id%>" method="GET">
-                        <button class="btn-Mov-X" type="submit">View Details</button>
+                        <button class="btn-Mov" type="submit">View Details</button>
                     </form>
+                    <br>
                     <form action="<%=`/delete/${movie.id}?_method=DELETE`%>" method="POST">
-                        <button class="btn-Mov-X" type="submit"> DELETE </button>
+                        <button class="btn-Mov" type="submit"> DELETE </button>
                     </form><br></div>
                     </div>
                  </div>

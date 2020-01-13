@@ -51,6 +51,8 @@
                        <h6 id="h6" data-aos="fade-left"><%=book.title %></h6>
                        <div data-aos="fade-up-left" class="btn-Mov-X1">
                         <form action="/addBook" method="post">
+                            <input type="hidden" name="mainSelect" value="<%= mainSelect%>">
+                            <input type="hidden" name="mainTitle" value="<%= mainTitle%>">
                             <input type="hidden" name="image_url" value="<%= book.image_url%>">
                             <input type="hidden" name="title" value="<%= book.title%>">
                             <input type="hidden" name="author" value="<%= book.author%>">
@@ -58,6 +60,10 @@
                             <input type="hidden" name="isbn" value="<%= book.isbn%>">
                             <button class="btn-Mov-X" type="submit">Select this Book</button>
                         </form><br>
+                        <form action="/searchIfMovie" method="post">
+                         <input type="hidden" name="title" value="<%= book.title%>">
+                         <button class="btn-Mov-X" type="submit">Searh If It has A Movie</button>
+                     </form>
                    </div>
                     </div>
                  </div>

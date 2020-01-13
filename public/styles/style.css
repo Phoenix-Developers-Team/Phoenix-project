@@ -176,11 +176,13 @@ a:hover {
     width: 90%;
     transition: 900ms;
     cursor: pointer;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .img-mov:hover{
     transform: scale(1.2);
     transition: 900ms;
+    color: rgb(255, 94, 0);
 }
 
 .bg-grey {

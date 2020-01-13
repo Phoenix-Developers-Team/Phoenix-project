@@ -1,12 +1,11 @@
 'use strict';
-
 // require the superagent in order to can get the data from API
 const superagent = require('superagent');
 // get the API key from env file to use it in the movie API
 const MOVIE_API_KEY = process.env.MOVIE_API_KEY;
 // Our database client. We'll use this to run queries
 const database = require('./dataBase.js');
-
+const url = require('url')
 // this function is make an update procces for movie
 function updateMovie(req, res) {
     let { title, image_url, overview, released_on, description } = req.body
@@ -36,13 +35,37 @@ function deleteMovie(req, res) {
 }
 // this function is added movie to favourite   
 function processAddMovie(req, res) {
-    let { title, image_url, overview, released_on, description } = req.body
-    let SQL = `INSERT INTO movie (title, image_url, overview, released_on, description) VALUES ($1, $2, $3, $4, $5)`
-    let values = [title, image_url, overview, released_on, description]
-    database.query(SQL, values)
-    // .then(() => {
-    //     res.redirect('/movie');
-    // })    .catch(error => { throw error; });
+    let { mainTitle, title, image_url, overview, released_on, description } = req.body;
+    let SQL_1 = `SELECT * FROM movie WHERE image_url=$1;`
+    let value = [image_url]
+    database.query(SQL_1, value)
+        .then(data => {
+            if (data.rows.length == 0) {         
+                let values = [title, image_url, overview, released_on, description]
+                let SQL = `INSERT INTO movie (title, image_url, overview, released_on, description) VALUES ($1, $2, $3, $4, $5);`
+                database.query(SQL, values)
+                    .then(() => {
+                        handleSearchedData(mainTitle)
+                            .then(data => {
+                                res.render('pages/showMovieResult', { movies: data, mainTitle: mainTitle })
+                            })
+                    })
+            } else {
+                handleSearchedData(mainTitle)
+                    .then(data => {
+                        res.render('pages/showMovieResult', { movies: data, mainTitle: mainTitle })
+                    })
+            }
+        })
+}
+function handleSearchedData(keyword) {
+    const moviesUrl = `https://api.themoviedb.org/3/search/movie?api_key=${MOVIE_API_KEY}&language=en-US&query=${keyword}&page=1&include_adult=false`;
+    console.log(moviesUrl);
+    return superagent.get(moviesUrl)
+        .then(moviesData => {
+            const movies = moviesData.body.results.map((data) => new Movies(data));
+            return movies;
+        });
 }
 // this function is search for a movie
 function getMovieData(req, res) {
@@ -50,24 +73,22 @@ function getMovieData(req, res) {
     superagent.get(moviesUrl)
         .then((moviesData) => {
             const movies = moviesData.body.results.map((data) => new Movies(data));
-            res.render('pages/showMovieResult', { movies: movies });
             let SQL = `INSERT INTO search_history (image_url,date)VAlUES($1,$2) `
-            let values = [movies[0].image_url,new Date()]
+            let values = [movies[0].image_url, new Date()]
             database.query(SQL, values)
-            .then(() => {
-                res.render('pages/show',{movies:movies})
-            })
+                .then(() => {
+                    res.render('pages/showMovieResult', { movies: movies, mainTitle: req.body.input })
+                })
         });
-    }
-        function getIFMovieData(req, res) {
-            console.log(req.body.title)
-            const moviesUrl = `https://api.themoviedb.org/3/search/movie?api_key=${MOVIE_API_KEY}&language=en-US&query=${req.body.title}&page=1&include_adult=false`
-            superagent.get(moviesUrl)
-                .then((moviesData) => {
-                    const movies = moviesData.body.results.map((data) => new Movies(data));
-                    res.render('pages/showMovieResult', { movies: movies });
-                });
-        }
+}
+function getIFMovieData(req, res) {
+    const moviesUrl = `https://api.themoviedb.org/3/search/movie?api_key=${MOVIE_API_KEY}&language=en-US&query=${req.body.title}&page=1&include_adult=false`
+    superagent.get(moviesUrl)
+        .then((moviesData) => {
+            const movies = moviesData.body.results.map((data) => new Movies(data));
+            res.render('pages/showMovieResult', { movies: movies, mainTitle: req.body.input });
+        });
+}
 // constuction function for movie  
 function Movies(data) {
     this.title = data.title;

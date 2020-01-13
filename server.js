@@ -1,5 +1,4 @@
 'use strict';
-
 // Read configurations from the .env file
 require('dotenv').config();
 // Express server library
@@ -28,7 +27,6 @@ const movie = require('./movie.js');
 const book = require('./book.js');
 // The handlers for dealing with 404 (not found) and 500 (errors)
 const mistake = require('./error.js');
-
 //     ********** MOVIE ROUTES **********
 server.get('/movie', movie.getAllMovies);
 server.post('/searchMovie', movie.getMovieData);
@@ -45,18 +43,16 @@ function showing(req, res) {
     res.render('pages/search')
 }
 function homePage(req, res) {
-    let SQL = `SELECT * FROM movie;`;
-    dataBase.query(SQL)
-        .then(element => {
+    
             let SQL_1 = `SELECT * FROM search_history
                     ORDER BY date DESC
-                    LIMIT 4;`
+                    LIMIT 4 ;`
                 dataBase.query(SQL_1)
                 .then(data => {
-                    res.render('pages/index', {moviesList:element.rows,output: data.rows });
+                    console.log(data.rows)
+                    res.render('pages/index', {output: data.rows });
                 })
-        })//.catch(err => hanleError(err));
-}
+            }
 function favoritBM(req, res) {
     res.render('pages/everything')
 }
@@ -67,12 +63,10 @@ server.get('/book', book.getAllBooks);
 server.get('/books/:book_id', book.getSpecificBook);
 server.put('/updatebook/:book_id', book.updateBook);
 server.delete('/deletebook/:book_id', book.deleteBook);
-server.post('/searchBook', book.searcheBook);
-
+server.get('/searchBook', book.searcheBook);
 //     ********** SHOW ERRORS **********
 server.use('*', mistake.notFoundHandler);
 server.use(mistake.errorHandler);
-
 //     ********** SERVER LISTEN **********
 dataBase.connect()
     .then(() => {

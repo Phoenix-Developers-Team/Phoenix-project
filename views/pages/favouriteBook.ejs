@@ -50,10 +50,10 @@
                     <div class="col-md-6 px-4">
                        <h6 id="h6" data-aos="fade-left"><%=book.title %></h6>
                        <form action="/books/<%= book.id%>" method="GET">
-                        <button type="submit">View Details</button>
+                        <button class="btn-Mov" type="submit">View Details</button>
                     </form>
                     <form action="<%=`/deletebook/${book.id}?_method=DELETE`%>" method="POST">
-                        <button type="submit"> DELETE </button> 
+                        <button class="btn-Mov" type="submit"> DELETE </button> 
                       </form><br>
                    </div>
                     </div>

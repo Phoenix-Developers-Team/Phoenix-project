@@ -51,11 +51,12 @@
                        <p data-aos="fade-left"> <%=movie.released_on%></p>
                        <div data-aos="fade-up-left" class="btn-Mov-X1">
                         <form action="/add" method="post">
-                            <input type="hidden" name="image_url" value="<%= movie.image_url%>">
-                            <input type="hidden" name="title" value="<%= movie.title%>">
-                            <input type="hidden" name="overview" value="<%= movie.overview%>">
-                            <input type="hidden" name="description" value="<%= movie.description%>">
-                            <input type="hidden" name="released_on" value="<%= movie.released_on%>">
+                          <input type="hidden" name="mainTitle" value="<%=mainTitle %>">
+                    <input type="hidden" name="image_url" value="<%= movie.image_url%>">
+                    <input type="hidden" name="title" value="<%= movie.title%>">
+                    <input type="hidden" name="overview" value="<%= movie.overview%>">
+                    <input type="hidden" name="description" value="<%= movie.description%>">
+                    <input type="hidden" name="released_on" value="<%= movie.released_on%>">
                             <button class="btn-Mov-X" type="submit">Select this Movie</button>
                         </form><br>
                         <form action="/searchIfBook" method="post">

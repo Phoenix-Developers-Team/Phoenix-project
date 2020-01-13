@@ -343,11 +343,15 @@
         </div>
         <section>
             <ul>
+                <%let check = []%>
                 <%for(let i=0 ; output.length>i ; i++) {%>
-                    <img id="img-mov-history" data-aos="fade-up" src="<%=output[i].image_url %>">
-                    <%}%>
-                </ul>
-            </section>
+                    <%if(!(check.includes(output[i].image_url))){%>
+                        <%check.push(output[i].image_url)%>
+                        <img id="img-mov-history" data-aos="fade-up" src="<%=output[i].image_url%>" alt="">
+                        <%}%>
+                 <%}%>
+            </ul>
+        </section>
         </section>
     </div>
     <br><hr data-aos="fade-right" width="70%" color="gray"><br>

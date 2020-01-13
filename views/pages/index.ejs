@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Phoenix-project</title>
+    <%- include('../partials/head') %>
 </head>
 <body>
-    <%=welecomMessage%>
-    <h2>Movie And Novels App</h2>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <section>
+        <ul>
+            <%let check = []%>
+            <%for(let i=0 ; output.length>i ; i++) {%>
+                <%if(!(check.includes(output[i].image_url))){%>
+                    <%check.push(output[i].image_url)%>
+                    <li>
+                    <img src="<%=output[i].image_url%>" alt="">
+                </li>
+                    <%}%>
+             <%}%>
+        </ul>
+    </section>
+
+    <footer>
+        <%- include('../partials/footer') %>
+    </footer>
 </body>
 </html>

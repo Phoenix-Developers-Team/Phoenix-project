@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+</head>
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+
+    <main>
+        <h2 id="searchMovie" >search Movie</h2>
+        <h2 id="searchBook" >search Book</h2>
+<script>
+    $('#searchMovie').on('click',()=>{
+        $('#bookForm').hide()
+        $('#movieForm').show()
+
+    })
+    $('#searchBook').on('click',()=>{
+        $('#movieForm').hide()
+        $('#bookForm').show()
+
+    })
+</script>
+
+    <form style="display: none;" action="/searchMovie" method="POST" id="movieForm">
+        <input type="text" name="input" required>
+        <button type="submit">Search For Movies</button>
+    </form>
+    <form style="display: none;" action="searchBook" method="GET" id="bookForm">
+        <br>
+    <input type="text" name="input" placeholder="type the name" required>
+    <input  type="radio" name="select" value="author" required>author <br><br> 
+    <input  type="radio" name="select" value="title" required>title <br>
+        <button type="submit"> Search book</button><br>
+    </form>
+    </main>
+    <footer>
+        <%- include('../partials/footer') %>
+    </footer>
+</body>
+</html>

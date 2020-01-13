@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+</head>
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <ul>
+        <img src="<%= book.image_url %>"> 
+        <h2><%=book.title %></h2>
+        <h3><%=book.author%></h3>
+        <p><%=book.description%></p>
+        <h4><%=book.isbn%></h4>
+        <p><%=book.bookshelf%></p>
+        <form action="<%= `/updatebook/${book.id}?_method=PUT`%>" method="POST">
+            <input type="text" name="title" value="<%= book.title %>">
+            <input type="text" name="image_url" value="<%= book.image_url %>">
+          <input type="text" name="author" value="<%= book.author %>">
+          <textarea name="description" cols="30" rows="10" > <%= book.description %></textarea>
+          <input type="text" name="isbn" value="<%= book.isbn %>">
+          <input type="text" name="bookshelf" value="<%= book.bookshelf %>"> 
+          <button type="submit"> Update Details </button>
+          </form>
+         
+</ul>
+<footer>
+  <%- include('../partials/footer') %>
+</footer>
+</body>
+</html>

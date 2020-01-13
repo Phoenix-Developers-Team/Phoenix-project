@@ -1,32 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include('../partials/head') %>
 </head>
+
 <body>
-    <header>
-        <%- include('../partials/header') %>
-    </header>
-    <ul>
-        <img src="<%= book.image_url %>"> 
-        <h2><%=book.title %></h2>
-        <h3><%=book.author%></h3>
-        <p><%=book.description%></p>
-        <h4><%=book.isbn%></h4>
-        <p><%=book.bookshelf%></p>
-        <form action="<%= `/updatebook/${book.id}?_method=PUT`%>" method="POST">
-            <input type="text" name="title" value="<%= book.title %>">
-            <input type="text" name="image_url" value="<%= book.image_url %>">
-          <input type="text" name="author" value="<%= book.author %>">
-          <textarea name="description" cols="30" rows="10" > <%= book.description %></textarea>
-          <input type="text" name="isbn" value="<%= book.isbn %>">
-          <input type="text" name="bookshelf" value="<%= book.bookshelf %>"> 
-          <button type="submit"> Update Details </button>
-          </form>
-         
-</ul>
-<footer>
-  <%- include('../partials/footer') %>
-</footer>
+  <br>
+  <br>
+  <br><br><br>
+    <section class="container-fluid bg-grey-X py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div data-aos="fade-up" class="logo-part-X">
+                                <img data-aos="fade-right" class="img-mov" src="<%= book.image_url %>"
+                                    class="w-50 logo-Mov">
+                            </div>
+                        </div>
+                        <div class="col-md-6 px-4">
+                            <h6 data-aos="fade-left"><%=book.title %></h6>
+                            <p data-aos="fade-left"><%=book.author%></p>
+                            <div data-aos="fade-up-left">
+                                <a href="#" id="upsearchMovie" class="btn-Mov"> Update Info </a><br>
+                                <a href="/book" class="btn-Mov"> Back</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-aos="fade-up-left" class="col-md-6 ">
+                    <h6><%=book.isbn%></h6>
+                    <section>
+                        <form style="display: none;" id="1movieForm" action="<%= `/updatebook/${book.id}?_method=PUT`%>"
+                            method="POST">
+                            <input type="text" name="title" value="<%= book.title %>">
+                            <input type="text" name="image_url" value="<%= book.image_url %>">
+                            <input type="text" name="author" value="<%= book.author %>">
+                            <textarea name="description" cols="30" rows="10"> <%= book.description %></textarea>
+                            <input type="text" name="isbn" value="<%= book.isbn %>">
+                            <input type="text" name="bookshelf" value="<%= book.bookshelf %>">
+                            <button id="upsearchBook" type="submit"> Update Details </button>
+                        </form>
+
+                    </section>
+                    <p id="1bookForm"><%=book.description%></p>
+                    <p><%=book.bookshelf%></p>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </section>
+    <script>
+        $('#upsearchMovie').on('click', () => {
+            $('#1bookForm').hide()
+            $('#1movieForm').show()
+
+        })
+
+        $('#upsearchBook').on('click', () => {
+            $('#1movieForm').hide()
+            $('#1bookForm').show()
+
+        })
+    </script>
+
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script>
+        AOS.init();
+    </script>
+    <script src="/js/app.js"></script>
 </body>
+
 </html>

@@ -67,8 +67,11 @@ function handleSearchedData(keyword) {
             return movies;
         });
 }
+
+
 // this function is search for a movie
 function getMovieData(req, res) {
+    console.log("asdasdsadsad", req.body)
     const moviesUrl = `https://api.themoviedb.org/3/search/movie?api_key=${MOVIE_API_KEY}&language=en-US&query=${req.body.input}&page=1&include_adult=false`
     superagent.get(moviesUrl)
         .then((moviesData) => {

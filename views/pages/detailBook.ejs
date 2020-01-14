@@ -35,14 +35,25 @@
                     <section>
                         <form style="display: none;" id="1movieForm" action="<%= `/updatebook/${book.id}?_method=PUT`%>"
                             method="POST">
-                            <input type="text" name="title" value="<%= book.title %>">
-                            <input type="text" name="image_url" value="<%= book.image_url %>">
-                            <input type="text" name="author" value="<%= book.author %>">
-                            <textarea name="description" cols="30" rows="10"> <%= book.description %></textarea>
-                            <input type="text" name="isbn" value="<%= book.isbn %>">
-                            <input type="text" name="bookshelf" value="<%= book.bookshelf %>">
-                            <button id="upsearchBook" type="submit"> Update Details </button>
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control" name="title" value="<%= book.title %>" placeholder="title">
+                            </div>
+                            <div class="form-group">
+                                <label for="Image">Image Url</label>
+                                <input type="text" class="form-control" name="image_url" value="<%= book.image_url %>" placeholder="image url">
+                            </div>
+                            <div class="form-group">
+                                <label for="author">Author:</label>
+                                <input name="author" value="<%= book.author %>" class="form-control" rows="5" id="comment">
+                              </div>
+                            <div class="form-group">
+                                <label for="description">Description:</label>
+                                <textarea name="description" class="form-control" rows="4" id="comment"> <%= book.description %> </textarea>
+                              </div>
+                            <button id="upsearchBook" class="btn btn-warning" type="submit"> Update Details </button>
                         </form>
+
 
                     </section>
                     <p id="1bookForm"><%=book.description%></p>

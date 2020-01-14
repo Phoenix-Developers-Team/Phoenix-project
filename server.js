@@ -39,6 +39,11 @@ server.post('/searchIfMovie', movie.getIFMovieData);
 server.get('/', homePage)
 server.get('/favorit', favoritBM)
 server.get('/search', showing);
+server.get('/about' , aboutUs);
+
+function aboutUs(req,res){
+    res.render('pages/about')
+}
 function showing(req, res) {
     res.render('pages/search')
 }

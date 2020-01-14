@@ -5,7 +5,7 @@
     <%- include('../partials/head') %>
 </head>
 
-<body>
+<body id="iiimg">
     <header class="headerX">
         <div class="rowHead">
             <div class="contentX">
@@ -18,11 +18,11 @@
                 </div>
                 <nav>
                     <ul>
-                        <li><a href="#sec01">Trending</a></li>
-                        <li><a href="#sec02">Box-Office</a></li>
-                        <li><a href="#sec03">History</a></li>
-                        <li><a href="/search">Search</a></li>
-                        <li><a href="/favorit">My-Fav</a></li>
+                        <li><a href="/">Box-Office</a></li>
+                      <li><a href="/">Trending</a></li>
+                      <li><a href="/">History</a></li>
+                      <li><a href="/search">Search</a></li>
+                      <li><a href="/favorit">My-Fav</a></li>
                     </ul>
                 </nav>
             </div>
@@ -32,41 +32,68 @@
 
     </nav>
 
-    <div class="image-container6">
-        <!-- ////// -->
-        <div id="myOverlay" class="overlay">
-            <span class="closebtn" onclick="closeSearch()" title="Close Overlay">×</span>
-            <div class="overlay-content">
-                <form action="/searchMovie" method="POST" id="movieForm">
-                    <input type="text" placeholder=" Search here..." name="input" required>
-                    <button type="submit"> Search For Movie</button>
-                </form>
+
+    <div class="row">
+        <div class="image-container6 col-lg-6">
+            <!-- ////// -->
+
+<section id="section03" class="demo" >
+            <a id="searchBook" class="text-X "  onclick="openSearch()"><span></span> Search Movie</a>
+</section>
+            <div id="myOverlay" class="overlay">
+                <span class="closebtn" onclick="closeSearch()" title="Close Overlay">×</span>
+                <div class="overlay-content">
+                    <form action="/searchMovie" method="POST" id="movieForm">
+                        <input type="text" placeholder=" Search here..." name="input" required>
+                        <button type="submit"> Search For Movie</button>
+                    </form>
+                </div>
             </div>
+            <!-- ////// -->
         </div>
-        <button class="openBtn" onclick="openSearch()">Open Search Box</button>
-        <!-- ////// -->
+    
+        <div class="image-container7 col-lg-6">
+<section id="section03" class="demo">
+            <a id="searchBook" class="text-X"  onclick="openSearchBook()"><span></span> Search Book</a>
+</section>
+             <div id="myOverlay2" class="overlay">
+                <span class="closebtn" onclick="closeSearchBook()" title="Close Overlay">×</span>
+                <div class="overlay-content">
+                    <form  action="searchBook" method="GET" id="bookForm" class="d-none">
+                        <br>
+                        <input type="text" name="input" placeholder=" Type The Name" required>
+                        <input type="radio" name="select" value="author" required>author <br><br>
+                        <input type="radio" name="select" value="title" required>title <br>
+                        <button type="submit"> Search book</button><br>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <script>
+            function openSearch() {
+                document.getElementById("myOverlay").style.display = "block";
+            }
+    
+            function closeSearch() {
+                document.getElementById("myOverlay").style.display = "none";
+            }
+            function closeSearchBook(){
+                document.getElementById("myOverlay2").style.display = "none";
+
+            }
+
+            function openSearchBook(){
+                document.getElementById("myOverlay2").style.display = "block";
+                document.getElementById("bookForm").classList.remove("d-none")
+
+                
+            }
+        </script>
     </div>
 
-    <div class="image-container7">
-        <a id="searchBook" class="text-X"> Search Book</a>
 
-        <form  action="searchBook" method="GET" id="bookForm">
-            <br>
-            <input type="text" name="input" placeholder=" Type The Name" required>
-            <input type="radio" name="select" value="author" required>author <br><br>
-            <input type="radio" name="select" value="title" required>title <br>
-            <button type="submit"> Search book</button><br>
-        </form>
-    </div>
-    <script>
-        function openSearch() {
-            document.getElementById("myOverlay").style.display = "block";
-        }
-
-        function closeSearch() {
-            document.getElementById("myOverlay").style.display = "none";
-        }
-    </script>
+    
     <footer class="container-fluid bg-grey py-5">
         <%- include('../partials/footer') %>
     </footer>

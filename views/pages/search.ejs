@@ -28,11 +28,6 @@
             </div>
         </div>
     </header>
-    <nav class="navbar">
-
-    </nav>
-
-
     <div class="row">
         <div class="image-container6 col-lg-6">
             <!-- ////// -->
@@ -42,10 +37,12 @@
 </section>
             <div id="myOverlay" class="overlay">
                 <span class="closebtn" onclick="closeSearch()" title="Close Overlay">×</span>
-                <div class="overlay-content">
+                <div class="container overlay-content">
                     <form action="/searchMovie" method="POST" id="movieForm">
-                        <input type="text" placeholder=" Search here..." name="input" required>
-                        <button type="submit"> Search For Movie</button>
+                            <div class="containerSH">
+                                <input type="text" placeholder="Search..."  name="input" required>
+                                <button class="search"></button>
+                              </div>
                     </form>
                 </div>
             </div>
@@ -60,11 +57,13 @@
                 <span class="closebtn" onclick="closeSearchBook()" title="Close Overlay">×</span>
                 <div class="overlay-content">
                     <form  action="searchBook" method="GET" id="bookForm" class="d-none">
-                        <br>
+                        <input type="radio" name="select" value="author" required>Author 
+                        <input type="radio" name="select" value="title" required>Title 
+                        
+                        <div class="containerSH">
                         <input type="text" name="input" placeholder=" Type The Name" required>
-                        <input type="radio" name="select" value="author" required>author <br><br>
-                        <input type="radio" name="select" value="title" required>title <br>
-                        <button type="submit"> Search book</button><br>
+                        <button class="search"> </button>
+                        </div><br><br><br><br><br>
                     </form>
                 </div>
             </div>
@@ -94,9 +93,7 @@
 
 
     
-    <footer class="container-fluid bg-grey py-5">
-        <%- include('../partials/footer') %>
-    </footer>
+    
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script>

@@ -214,7 +214,7 @@
 
 
 
-  @media only screen and (max-width: 910px){
+  @media only screen and (max-width: 1000px){
     .btn-Mov-X1{
         margin-bottom: 5%;
     }
@@ -271,7 +271,7 @@ a:hover {
     box-shadow: 7px 7px 1px #ff5100;
     
 }
-@media only screen and (max-width: 910px){
+@media only screen and (max-width: 1000px){
     .img-mov-R{
         width: 100%;
         margin-bottom: 0%;
@@ -349,7 +349,7 @@ a:hover {
     
 }
 
-@media only screen and (max-width: 910px){
+@media only screen and (max-width: 1000px){
     .img-mov{
         width: 100%;
         transition: 900ms;
@@ -424,7 +424,7 @@ ul{
 
   #scroll {
     position: relative;
-    background: url(https://image3.uhdpaper.com/wallpaper/joker-2019-joaquin-phoenix-art-uhdpaper.com-4K-3.1262.jpg) no-repeat center center fixed;
+    background: url(https://i.redd.it/fp1cqfgslsr31.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -484,7 +484,7 @@ ul{
     padding-bottom: 6px;
     font-family: "Oswald", sans-serif;
   }
-  @media only screen and (max-width: 910px) {
+  @media only screen and (max-width: 1000px) {
 
     .headerX{
       position: fixed;
@@ -537,7 +537,7 @@ ul{
     line-height: 1;
     margin-bottom: 10px;
   }
-  @media only screen and (max-width: 910px) {
+  @media only screen and (max-width: 1000px) {
     .logo {
       float: none;
     }
@@ -545,9 +545,9 @@ ul{
   
   nav {
     float: right;
-    width: 60%;
+    width: 80%;
   }
-  @media only screen and (max-width: 910px) {
+  @media only screen and (max-width: 1000px){
     nav {
       width: 100%;
     }
@@ -559,7 +559,7 @@ ul{
     float: right;
     margin: 3px;
   }
-  @media only screen and (max-width: 910px) {
+  @media only screen and (max-width: 1000px) {
     nav ul {
       padding-top: 10px;
       margin-bottom: 22px;
@@ -573,7 +573,7 @@ ul{
     margin-left: 35px;
     line-height: 1.5;
   }
-  @media only screen and (max-width: 910px) {
+  @media only screen and (max-width: 1000px) {
     nav ul li {
       width: 100%;
       padding: 7px 0;
@@ -617,7 +617,7 @@ ul{
     width: 30px;
     transition: all 200ms ease-in;
   }
-  @media only screen and (max-width: 910px) {
+  @media only screen and (max-width: 1000px) {
     .mobile-toggle {
       display: block;
     }
@@ -681,107 +681,7 @@ ul{
       bottom: 50px;
       right: 100px;
   }
-  /* ////////////////////////// */
-  
-  .tablink {
-    background-color: #555;
-    color: white;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    font-size: 17px;
-    width: 25%;
-  }
-  
-  .tablink:hover {
-    background-color: #777;
-  }
-  
-  /* Style the tab content */
-  .tabcontent {
-    color: white;
-    display: none;
-    text-align: center;
-    height: 550px;
-    position: absolute;
-  }
-  
-  #Horror {
-    position: relative;
-    background-image: url(https://wallpaperaccess.com/full/1342185.jpg);
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    text-align: center;
-    color: #fff;
-    padding-top: 110px;
-    min-height: 600px;
-    letter-spacing: 2px;
-  }
-  #Drama {
-    position: relative;
-    background-image: url(http://straightfromamovie.com/wp-content/uploads/2019/10/joker-movie-wallpaper.jpg);
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    text-align: center;
-    color: #fff;
-    padding-top: 110px;
-    min-height: 600px;
-    letter-spacing: 2px;
-  }
-
-  @media only screen and (max-width: 910px) {
-    #Horror {
-        position: relative;
-        background-image: url(https://www.mauvais-genres.com/27043/zombieland-double-tap-original-movie-poster-47x63-in-2019-ruben-fleischer-woody-harrelson.jpg);
-        background-size: 100%;
-        text-align: center;
-        color: #fff;
-        padding-top: 80px;
-        min-height: 200px;
-        letter-spacing: 2px;
-      }
-      #Drama {
-        position: relative;
-        background-image: url(https://www.mordeo.org/files/uploads/2019/09/Joker-2019-4K-Ultra-HD-Mobile-Wallpaper-950x1689.jpg);
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        background-size: cover;
-        text-align: center;
-        color: #fff;
-        padding-top: 110px;
-        min-height: 600px;
-        letter-spacing: 2px;
-      }
-    
-    .tablink {
-        background-color: #555;
-        color: white;
-        float: left;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        padding: 14px 16px;
-        font-size: 20px;
-        width: 50%;
-      }
-      
-      .tablink:hover {
-        background-color: #777;
-      }
-      
-      
-      .tabcontent {
-        color: white;
-        display: none;
-        text-align: center;
-        height: 500px;
-        position: absolute;
-      }
-  }
+  /* ////////////////////////// *
   
   
   /* ////////////////////
@@ -815,13 +715,22 @@ footer h6:after {
    left: 0;
    bottom: -20px;
 }
+@media only screen and (max-width: 1000px) {
+  .btn-footer {
+    padding: 7px 20px;
+  }
+  .btn-Mov {
+    padding: 7px 20px;
+  }
+}
+
 .btn-footer {
    color: grey;         
    text-decoration: none;
    border: 1px solid;
    border-radius: 43px;
    font-size: 13px;
-   padding: 7px 30px;
+   padding: 7px 20px;
    line-height: 47px;
  }
 .btn-footer:hover {
@@ -901,7 +810,7 @@ a:hover {
   }
 
   .image-container2 {
-    background-image: url(https://siboneycubancuisine.com/image/18076-full_iron-man-3-iron-man-vs-mandarin-4k-hd-desktop-wallpaper.jpg);
+    background-image: url(https://i.pinimg.com/originals/85/17/2f/85172f8c8418f69be909693fc45b7b3a.jpg);
     background-size: cover;
     position: relative;
     height: 300px;
@@ -1161,7 +1070,7 @@ a:hover {
     box-shadow: 7px 7px 1px #ff5100;
     
 }
-@media only screen and (max-width: 910px){
+@media only screen and (max-width: 1000px){
     .img-mov-fav{
         width: 100%;
         margin-bottom: 0%;
@@ -1203,7 +1112,7 @@ a:hover {
     font-size: 250%;
     color: orangered;
 }
-@media only screen and (max-width: 910px){
+@media only screen and (max-width: 1000px){
 
   #img-mov-history{
     

@@ -31,7 +31,7 @@ $('nav a').click(function(event) {
   var target = $(id).offset().top - offset;
   $('html, body').animate({
       scrollTop: target
-  }, 500);
+  }, 1000);
   event.preventDefault();
 });
 /* Scroll-to-Top Button */
